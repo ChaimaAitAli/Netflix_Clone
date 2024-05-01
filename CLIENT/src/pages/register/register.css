@@ -1,0 +1,99 @@
+.register {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%, 
+      rgba(0, 0, 0, 0.7) 20%, 
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.7) 80%, 
+      rgba(0, 0, 0, 1) 100% 
+    ),
+    url("https://assets.nflxext.com/ffe/siteui/vlv3/7ca5b7c7-20aa-42a8-a278-f801b0d65fa1/8120326d-a774-464c-a301-6e9acfdb4d7c/MA-en-20240326-popsignuptwoweeks-perspective_alpha_website_large.jpg");
+  background-size: cover;
+    position: relative;
+  
+    .top {
+      .wrapper {
+        padding: 20px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+  
+        .logo {
+          height: 40px;
+        }
+  
+        .loginButton {
+          background-color: red;
+          border: none;
+          color: white;
+          border-radius: 5px;
+          padding: 5px 15px;
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+          z-index: 5;
+        }
+      }
+    }
+  
+    .container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+  
+      h1 {
+        font-size: 50px;
+      }
+  
+      h2 {
+        margin: 20px;
+      }
+  
+      p {
+        font-size: 20px;
+      }
+  
+      .input {
+        width: 50%;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        height: 50px;
+        border-radius: 10px;
+
+
+        input{
+          flex: 9;
+          height: 100%;
+          border: none;
+          padding: 0 10px;
+          border-radius: 10px;
+
+      }
+
+      
+        .registerButton{
+            flex: 3;
+            height: 100%;
+            background-color: red;
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            border-radius: 10px;
+
+        }
+      }
+    }
+  }
