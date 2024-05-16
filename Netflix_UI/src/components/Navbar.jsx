@@ -5,15 +5,26 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { firebaseAuth } from "../utils/firebase-config";
 import { FaPowerOff, FaSearch } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+
+
+
 export default function Navbar({ isScrolled }) {
   const [showSearch, setShowSearch] = useState(false);
   const [inputHover, setInputHover] = useState(false);
+  const navigate = useNavigate();
   const links = [
     { name: "Home", link: "/" },
     { name: "TV Shows", link: "/tv" },
     { name: "Movies", link: "/movies" },
     { name: "My List", link: "/mylist" },
   ];
+
+  const openAccountPage = () => {
+    navigate("/account");
+  }
+
 
   return (
     <Container>
@@ -55,9 +66,21 @@ export default function Navbar({ isScrolled }) {
               }}
             />
           </div>
-          <button onClick={() => signOut(firebaseAuth)}>
-            <FaPowerOff />
-          </button>
+          
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+              alt=""
+              onClick={openAccountPage}
+            />
+            <div className="profile">
+              <IoMdArrowDropdown  className="icon" />
+              <div className="options">
+                <span>Settings</span>
+                <span onClick={() => signOut(firebaseAuth)}>
+                  Logout
+                </span>
+              </div>
+            </div>
         </div>
       </nav>
     </Container>
@@ -153,6 +176,33 @@ const Container = styled.div`
           padding: 0.3rem;
         }
       }
+      img{
+        height:40px;
+        width:40px;
+        border-radius:12px;
+        cursor: pointer;
+      }
+      .profile {
+        .options {
+          display: none;
+          background-color: var(--main-color);
+          border-radius: 5px;
+        }
+
+        span {
+          padding: 10px;
+          cursor: pointer;
+        }
+
+        &:hover {
+          .options {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            background-color:#D0D0D0;
+          }
+        }
+
     }
   }
 `;
