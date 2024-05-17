@@ -1,26 +1,26 @@
-import { findOne, findByIdAndUpdate, create } from "../models/UserModel";
+const User = require("../models/UserModel");
 
-export async function getLikedMovies(req, res) {
+module.exports.getLikedMovies = async (req, res) => {
   try {
     const { email } = req.params;
-    const user = await await findOne({ email });
+    const user = await await User.findOne({ email });
     if (user) {
       return res.json({ msg: "success", movies: user.likedMovies });
     } else return res.json({ msg: "User with given email not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching movies." });
   }
-}
+};
 
-export async function addToLikedMovies(req, res) {
+module.exports.addToLikedMovies = async (req, res) => {
   try {
     const { email, data } = req.body;
-    const user = await await findOne({ email });
+    const user = await await User.findOne({ email });
     if (user) {
       const { likedMovies } = user;
       const movieAlreadyLiked = likedMovies.find(({ id }) => id === data.id);
       if (!movieAlreadyLiked) {
-        await findByIdAndUpdate(
+        await User.findByIdAndUpdate(
           user._id,
           {
             likedMovies: [...user.likedMovies, data],
@@ -28,17 +28,17 @@ export async function addToLikedMovies(req, res) {
           { new: true }
         );
       } else return res.json({ msg: "Movie already added to the liked list." });
-    } else await create({ email, likedMovies: [data] });
+    } else await User.create({ email, likedMovies: [data] });
     return res.json({ msg: "Movie successfully added to liked list." });
   } catch (error) {
     return res.json({ msg: "Error adding movie to the liked list" });
   }
-}
+};
 
-export async function removeFromLikedMovies(req, res) {
+module.exports.removeFromLikedMovies = async (req, res) => {
   try {
     const { email, movieId } = req.body;
-    const user = await findOne({ email });
+    const user = await User.findOne({ email });
     if (user) {
       const movies = user.likedMovies;
       const movieIndex = movies.findIndex(({ id }) => id === movieId);
@@ -46,7 +46,7 @@ export async function removeFromLikedMovies(req, res) {
         res.status(400).send({ msg: "Movie not found." });
       }
       movies.splice(movieIndex, 1);
-      await findByIdAndUpdate(
+      await User.findByIdAndUpdate(
         user._id,
         {
           likedMovies: movies,
@@ -58,4 +58,4 @@ export async function removeFromLikedMovies(req, res) {
   } catch (error) {
     return res.json({ msg: "Error removing movie to the liked list" });
   }
-}
+};
