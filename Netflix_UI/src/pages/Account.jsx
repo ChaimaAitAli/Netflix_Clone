@@ -369,6 +369,8 @@ const Container = styled.div`
       
       .icon {
         margin-right: 15px;
+        height:25px;
+        width:25px;
 
       }
       .right-icon{

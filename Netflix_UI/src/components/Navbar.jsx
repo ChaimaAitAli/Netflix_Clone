@@ -192,6 +192,11 @@ const Container = styled.div`
         span {
           padding: 10px;
           cursor: pointer;
+          color:black;
+          font-size:15px;
+        }
+        span:hover{
+          font-weight:bold;
         }
 
         &:hover {
