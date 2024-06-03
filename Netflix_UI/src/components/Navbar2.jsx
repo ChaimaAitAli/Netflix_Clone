@@ -55,13 +55,6 @@ export default function Navbar({ isScrolled }) {
     setSearchResults([]);
   };
 
-  const handleBlur = () => {
-    if (!inputHover) {
-      setShowSearch(false);
-      setSearchResults([]);
-    }
-  };
-
   return (
     <Container>
       <nav className={`${isScrolled ? "scrolled" : ""} flex`}>
@@ -79,7 +72,14 @@ export default function Navbar({ isScrolled }) {
         </div>
         <div className="right flex a-center">
           <div className={`search ${showSearch ? "show-search" : ""}`}>
-            <button onFocus={() => setShowSearch(true)} onBlur={handleBlur}>
+            <button
+              onFocus={() => setShowSearch(true)}
+              onBlur={() => {
+                if (!inputHover) {
+                  setShowSearch(false);
+                }
+              }}
+            >
               <FaSearch />
             </button>
             <input
@@ -89,7 +89,10 @@ export default function Navbar({ isScrolled }) {
               onChange={(e) => setSearchQuery(e.target.value)}
               onMouseEnter={() => setInputHover(true)}
               onMouseLeave={() => setInputHover(false)}
-              onBlur={handleBlur}
+              onBlur={() => {
+                setShowSearch(false);
+                setInputHover(false);
+              }}
             />
             {searchResults.length > 0 && (
               <div className="dropdown">
@@ -139,7 +142,7 @@ export default function Navbar({ isScrolled }) {
 
 const Container = styled.div`
   .scrolled {
-    background-color: black;
+    display: none;
   }
   nav {
     position: sticky;
@@ -149,7 +152,7 @@ const Container = styled.div`
     justify-content: space-between;
     position: fixed;
     top: 0;
-    z-index: 2;
+    z-index: 100;
     padding: 0 4rem;
     align-items: center;
     transition: 0.3s ease-in-out;

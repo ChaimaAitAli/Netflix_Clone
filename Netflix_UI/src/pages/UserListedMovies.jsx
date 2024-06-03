@@ -35,9 +35,9 @@ export default function UserListedMovies() {
   return (
     <Container>
       <Navbar isScrolled={isScrolled} />
-      <div className="content flex column">
-        <h1>My List</h1>
-        <div className="grid flex">
+      <Content>
+        <Heading>My List</Heading>
+        <Grid>
           {movies.map((movie, index) => {
             return (
               <Card
@@ -48,23 +48,44 @@ export default function UserListedMovies() {
               />
             );
           })}
-        </div>
-      </div>
+        </Grid>
+      </Content>
     </Container>
   );
 }
 
 const Container = styled.div`
-  .content {
-    margin: 2.3rem;
-    margin-top: 8rem;
-    gap: 3rem;
-    h1 {
-      margin-left: 3rem;
-    }
-    .grid {
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+  padding: 2rem;
+  background-color: #141414;
+  color: white;
+  min-height: 100vh;
+`;
+
+const Content = styled.div`
+  margin-top: 6rem;
+`;
+
+const Heading = styled.h1`
+  margin-bottom: 4rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  position: relative;
+  &:after {
+    content: "";
+    width: 150px;
+    height: 4px;
+    background-color: #e50914;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
   }
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
 `;

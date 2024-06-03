@@ -76,20 +76,6 @@ export const fetchMovies = createAsyncThunk(
   }
 );
 
-/*export const fetchMovieTrailer = createAsyncThunk(
-  "netflix/trailer",
-  async (movieId) => {
-    const response = await axios.get(
-      `${TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`
-    );
-    const trailers = response.data.results.filter(
-      (video) => video.type === "Trailer" && video.site === "YouTube"
-    );
-    const trailerId = trailers.length > 0 ? trailers[0].key : null;
-    return trailerId;
-  }
-);*/
-
 export const fetchMovieTrailer = createAsyncThunk(
   "netflix/trailer",
   async (movieId) => {

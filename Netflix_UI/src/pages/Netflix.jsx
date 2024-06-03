@@ -12,10 +12,8 @@ import { fetchMovies, getGenres } from "../store";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import Slider from "../components/Slider";
-
 function Netflix() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [randomMovie, setRandomMovie] = useState(null);
   const movies = useSelector((state) => state.netflix.movies);
   const genres = useSelector((state) => state.netflix.genres);
   const genresLoaded = useSelector((state) => state.netflix.genresLoaded);
@@ -25,20 +23,13 @@ function Netflix() {
 
   useEffect(() => {
     dispatch(getGenres());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (genresLoaded) {
       dispatch(fetchMovies({ genres, type: "all" }));
     }
-  }, [genresLoaded, dispatch, genres]);
-
-  useEffect(() => {
-    if (movies.length > 0) {
-      const randomIndex = Math.floor(Math.random() * movies.length);
-      setRandomMovie(movies[randomIndex]);
-    }
-  }, [movies]);
+  }, [genresLoaded]);
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -48,42 +39,38 @@ function Netflix() {
   return (
     <Container>
       <Navbar isScrolled={isScrolled} />
-
       <div className="hero">
-        {randomMovie && (
-          <>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${randomMovie.image}`} // Adjust the property name based on your movie object
-              alt={randomMovie.name} // Adjust the property name based on your movie object
-              className="background-image"
-            />
-            <div className="container">
-              <div className="logo">
-               { randomMovie.name}
-              </div>
-              <div className="buttons flex">
-                <button
-                  onClick={() => navigate("/player")}
-                  className="flex j-center a-center"
-                >
-                  <FaPlay />
-                  Play
-                </button>
-                <button className="flex j-center a-center">
-                  <AiOutlineInfoCircle />
-                  More Info
-                </button>
-              </div>
-            </div>
-          </>
-        )}
+        <img
+          src={backgroundImage}
+          alt="background"
+          className="background-image"
+        />
+        <div className="container">
+          <div className="logo">
+            <img src={MovieLogo} alt="Movie Logo" />
+          </div>
+          <div className="buttons flex">
+            <button
+              onClick={() => navigate("/player")}
+              className="flex j-center a-center"
+            >
+              <FaPlay />
+              Play
+            </button>
+            <button
+              className="flex j-center a-center"
+              onClick={() => navigate("/TVshowDetails/66732")}
+            >
+              <AiOutlineInfoCircle />
+              More Info
+            </button>
+          </div>
+        </div>
       </div>
-
       <Slider movies={movies} />
     </Container>
   );
 }
-
 
 const Container = styled.div`
   background-color: black;
@@ -100,21 +87,20 @@ const Container = styled.div`
       position: absolute;
       bottom: 5rem;
       .logo {
-        font-weight: bolder;
-        font-size: 50px; 
-         color:white;
+        img {
           width: 100%;
           height: 100%;
           margin-left: 5rem;
-        
+        }
       }
       .buttons {
         margin: 5rem;
         gap: 2rem;
         button {
           font-size: 1.4rem;
+          font-family: "Roboto", sans-serif;
           gap: 1rem;
-          border-radius: 0.2rem;
+          border-radius: 30px;
           padding: 0.5rem;
           padding-left: 2rem;
           padding-right: 2.4rem;

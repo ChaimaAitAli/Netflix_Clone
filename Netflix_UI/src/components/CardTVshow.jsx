@@ -78,7 +78,7 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
       key={movieData.id} // Ensure unique key for Container
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => navigate(`/movieDetails/${movieData.id}`)}
+      onClick={() => navigate(`/TVshowDetails/${movieData.id}`)}
     >
       <img
         src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
