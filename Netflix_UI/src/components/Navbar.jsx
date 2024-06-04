@@ -8,6 +8,7 @@ import { FaPowerOff, FaSearch } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { signOut } from "firebase/auth";
 import axios from "axios";
+import { IoIosNotifications } from "react-icons/io";
 
 export default function Navbar({ isScrolled }) {
   const [showSearch, setShowSearch] = useState(false);
@@ -120,10 +121,12 @@ export default function Navbar({ isScrolled }) {
               </div>
             )}
           </div>
-          <button onClick={() => signOut(firebaseAuth)}>
-            <FaPowerOff />
-          </button>
-          <img src={account} alt="account" onClick={openAccountPage} />
+          <IoIosNotifications className="icon" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+              alt=""
+              onClick={openAccountPage}
+            />
           <div className="profile">
             <IoMdArrowDropdown className="icon" />
             <div className="options">
@@ -141,6 +144,7 @@ const Container = styled.div`
   .scrolled {
     background-color: black;
   }
+  
   nav {
     position: sticky;
     top: 0;
@@ -185,6 +189,10 @@ const Container = styled.div`
           color: #f34242;
           font-size: 1.2rem;
         }
+      }
+      .icon{
+        height: 30px;
+        width:30px;
       }
       .search {
         display: flex;
