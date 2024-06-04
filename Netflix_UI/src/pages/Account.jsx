@@ -45,9 +45,7 @@ export default function Account() {
             />
           </div>
           <div className="bar-right">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-            />
+            <img src={account} alt="account" />
             <div className="profile">
               <IoMdArrowDropdown className="icon" />
               <div className="options">
@@ -290,7 +288,7 @@ const Container = styled.div`
 
     .right {
       background-color: white;
-      width: 62%;
+      width: 70%;
       padding: 20px;
 
       h1 {

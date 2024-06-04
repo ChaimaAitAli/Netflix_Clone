@@ -100,7 +100,7 @@ const Container = styled.div`
           font-size: 1.4rem;
           font-family: "Roboto", sans-serif;
           gap: 1rem;
-          
+          border-radius: 30px;
           padding: 0.5rem;
           padding-left: 2rem;
           padding-right: 2.4rem;
