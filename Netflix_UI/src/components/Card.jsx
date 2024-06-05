@@ -9,23 +9,25 @@ import { BsCheck } from "react-icons/bs";
 import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
-import { useDispatch } from "react-redux";
-import { removeMovieFromLiked } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { removeMovieFromLiked, getUsersLikedMovies } from "../store";
 import YouTube from "react-youtube";
 
-export default React.memo(function Card({ index, movieData, isLiked = false }) {
+export default React.memo(function Card({ index, movieData }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
   const [email, setEmail] = useState(undefined);
   const [trailerId, setTrailerId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const likedMovies = useSelector((state) => state.netflix.likedMovies);
 
   useEffect(() => {
     const fetchTrailer = async () => {
-      if (!isHovered) return; // Fetch trailer only if hovered
+      if (!isHovered) return; 
       setIsLoading(true);
-      const apiKey = "AIzaSyDgrdhQZAxM9sdZvKXaI8NBv2eBUpBncxc"; // Replace with your Youtube Data API key
+      const apiKey = "AIzaSyDgrdhQZAxM9sdZvKXaI8NBv2eBUpBncxc";
 
       const cachedTrailerId = localStorage.getItem(`trailer-${movieData.id}`);
       if (cachedTrailerId) {
@@ -56,11 +58,21 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
     fetchTrailer();
   }, [isHovered, movieData.id]);
 
-  onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) {
-      setEmail(currentUser.email);
-    } else navigate("/login");
-  });
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+      if (currentUser) {
+        setEmail(currentUser.email);
+        dispatch(getUsersLikedMovies(currentUser.email));
+      } else navigate("/login");
+    });
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    if (likedMovies && Array.isArray(likedMovies)) {
+      const liked = likedMovies.some((movie) => movie.id === movieData.id);
+      setIsLiked(liked);
+    }
+  }, [likedMovies, movieData.id]);
 
   const addToList = async () => {
     try {
@@ -68,6 +80,16 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
         email,
         data: movieData,
       });
+      dispatch(getUsersLikedMovies(email)); // Refresh the liked movies list
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeFromList = async () => {
+    try {
+      await dispatch(removeMovieFromLiked({ movieId: movieData.id, email }));
+      dispatch(getUsersLikedMovies(email)); // Refresh the liked movies list
     } catch (error) {
       console.log(error);
     }
@@ -75,10 +97,9 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
 
   return (
     <Container
-      key={movieData.id} // Ensure unique key for Container
+      key={movieData.id} 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      
     >
       <img
         src={`https://image.tmdb.org/t/p/w500${movieData.image}`}
@@ -118,14 +139,7 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
                 {isLiked ? (
                   <BsCheck
                     title="Remove from List"
-                    onClick={() =>
-                      dispatch(
-                        removeMovieFromLiked({
-                          movieId: movieData.id,
-                          email,
-                        })
-                      )
-                    }
+                    onClick={removeFromList}
                   />
                 ) : (
                   <AiOutlinePlus title="Add to my list" onClick={addToList} />

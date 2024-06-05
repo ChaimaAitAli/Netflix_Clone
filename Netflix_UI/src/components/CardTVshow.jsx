@@ -23,9 +23,9 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
 
   useEffect(() => {
     const fetchTrailer = async () => {
-      if (!isHovered) return; // Fetch trailer only if hovered
+      if (!isHovered) return; 
       setIsLoading(true);
-      const apiKey = "AIzaSyDgrdhQZAxM9sdZvKXaI8NBv2eBUpBncxc"; // Replace with your Youtube Data API key
+      const apiKey = "AIzaSyDgrdhQZAxM9sdZvKXaI8NBv2eBUpBncxc"; 
 
       const cachedTrailerId = localStorage.getItem(`trailer-${movieData.id}`);
       if (cachedTrailerId) {
@@ -75,7 +75,7 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
 
   return (
     <Container
-      key={movieData.id} // Ensure unique key for Container
+      key={movieData.id} 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMovies, getGenres } from "../store";
 import SelectGenre from "../components/SelectGenre";
-import Slider from "../components/SliderTVshow";
+import Slider from "../components/Slider";
 
 function TVShows() {
   const [isScrolled, setIsScrolled] = useState(false);

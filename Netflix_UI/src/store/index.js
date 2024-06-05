@@ -8,6 +8,7 @@ import { API_KEY, TMDB_BASE_URL } from "../utils/constants";
 
 const initialState = {
   movies: [],
+  likedMovies: [],
   genresLoaded: false,
   genres: [],
 };
@@ -139,10 +140,10 @@ const NetflixSlice = createSlice({
       state.movies = action.payload;
     });
     builder.addCase(getUsersLikedMovies.fulfilled, (state, action) => {
-      state.movies = action.payload;
+      state.likedMovies = action.payload; // Update likedMovies array with saved movies
     });
     builder.addCase(removeMovieFromLiked.fulfilled, (state, action) => {
-      state.movies = action.payload;
+      state.likedMovies = action.payload; // Update likedMovies array after removing a movie
     });
     builder.addCase(fetchMovieTrailer.fulfilled, (state, action) => {
       const movie = state.movies.find((m) => m.id === action.meta.arg);
@@ -152,6 +153,7 @@ const NetflixSlice = createSlice({
     });
   },
 });
+
 
 export const store = configureStore({
   reducer: {
