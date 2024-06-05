@@ -148,12 +148,12 @@ const Container = styled.div`
   nav {
     position: sticky;
     top: 0;
-    height: 6.5rem;
+    height: 5rem;
     width: 100%;
     justify-content: space-between;
     position: fixed;
     top: 0;
-    z-index: 2;
+    z-index: 4;
     padding: 0 4rem;
     align-items: center;
     transition: 0.3s ease-in-out;

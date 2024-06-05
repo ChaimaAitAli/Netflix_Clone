@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
-import Navbar from "../components/Navbar2";
+import Navbar from "../components/Navbar";
 import playButton from "../assets/playButton.png";
 import star from "../assets/star1.png";
 

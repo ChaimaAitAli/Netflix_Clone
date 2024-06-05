@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import Navbar from "../components/Navbar2";
+import Navbar from "../components/Navbar";
 import playButton from "../assets/playButton.png";
 import star from "../assets/star1.png";
 
@@ -51,7 +51,7 @@ const TVShowDetails = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.pageYOffset !== 0);
+      setIsScrolled(window.pageYOffset === 0 ? true : false);
     };
 
     window.addEventListener("scroll", handleScroll);
