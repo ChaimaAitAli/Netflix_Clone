@@ -133,14 +133,14 @@ export default React.memo(function Card({ index, movieData, isLiked = false }) {
               </div>
               <div className="info">
                 <BiChevronDown title="More Info" 
-                onClick={() => navigate(`/TVshowDetails/${movieData.id}`)}
+                onClick={() => navigate(`/MovieDetails/${movieData.id}`)}
                 />
               </div>
             </div>
             <div className="genres flex">
               <ul className="flex">
                 {movieData.genres.map((genre, index) => (
-                  <li key={index}>{genre}</li> // Ensure unique key for each genre item
+                  <li key={index}>{genre}</li>
                 ))}
               </ul>
             </div>
