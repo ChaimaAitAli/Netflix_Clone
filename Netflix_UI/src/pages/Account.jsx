@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { signOut, onAuthStateChanged } from "firebase/auth"; // Imported together
 import styled from "styled-components";
 import { firebaseAuth } from "../utils/firebase-config";
-import account from "../assets/accountICON.png";
 import { useNavigate, Link } from "react-router-dom";
 import { IoMdArrowDropdown, IoMdArrowBack } from "react-icons/io";
 import {
@@ -102,7 +101,7 @@ export default function Account() {
             <h3>Membership Details</h3>
             <div className="membershipDetails">
               <h4>Standard plan</h4>
-              <h5>Next payment: May 4, 2024</h5>
+              <h5>Next payment: July 4, 2024</h5>
               <h4>
                 Manage membership <MdCardMembership className="right-icon" />
               </h4>
