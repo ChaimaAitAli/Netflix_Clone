@@ -51,7 +51,7 @@ const TVShowDetails = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.pageYOffset === 0 ? true : false);
+      setIsScrolled(window.pageYOffset !== 0);
     };
 
     window.addEventListener("scroll", handleScroll);
