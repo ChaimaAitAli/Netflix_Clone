@@ -7,7 +7,13 @@ const mongoose = require("mongoose");
 const app = express();
 dotenv.config({ path: "./config.env" });
 
-app.use(cors());
+app.use(cors(
+  {
+  origin: ["https://netflix-clone.vercel.app"],
+  methods:["POST", "GET"],
+  credentials: true
+  }
+  ));
 app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader(
